@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp } from 'lucide-react';
+import CountdownTimer from '@/components/CountdownTimer';
 
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
@@ -14,12 +14,12 @@ const Index = () => {
   };
 
   const plans = [
-    { followers: 100, price: 5.00, popular: false },
-    { followers: 500, price: 15.00, popular: true },
-    { followers: 1000, price: 25.00, popular: false },
-    { followers: 2500, price: 50.00, popular: false },
-    { followers: 5000, price: 85.00, popular: false },
-    { followers: 10000, price: 150.00, popular: false },
+    { followers: 100, price: 5.00, originalPrice: 8.00, popular: false },
+    { followers: 500, price: 15.00, originalPrice: 25.00, popular: true },
+    { followers: 1000, price: 25.00, originalPrice: 40.00, popular: false },
+    { followers: 2500, price: 50.00, originalPrice: 80.00, popular: false },
+    { followers: 5000, price: 85.00, originalPrice: 140.00, popular: false },
+    { followers: 10000, price: 150.00, originalPrice: 250.00, popular: false },
   ];
 
   const benefits = [
@@ -84,7 +84,13 @@ const Index = () => {
       {/* Planos e Preços */}
       <section id="planos" className="bg-[#f9f9f9] py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">Escolha Seu Plano</h2>
+          <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Escolha Seu Plano</h2>
+          
+          {/* Cronômetro de Escassez */}
+          <div className="max-w-md mx-auto mb-16">
+            <CountdownTimer initialHours={2} initialMinutes={30} initialSeconds={0} />
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {plans.map((plan, index) => (
               <Card 
@@ -104,8 +110,18 @@ const Index = () => {
                   <CardTitle className="text-2xl font-bold text-[#111111]">
                     {plan.followers.toLocaleString()} Seguidores
                   </CardTitle>
-                  <CardDescription className="text-4xl font-bold text-neon-blue mt-4">
-                    R$ {plan.price.toFixed(2).replace('.', ',')}
+                  <CardDescription className="mt-4">
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className="text-lg text-gray-500 line-through">
+                        R$ {plan.originalPrice.toFixed(2).replace('.', ',')}
+                      </span>
+                      <span className="text-4xl font-bold text-neon-blue">
+                        R$ {plan.price.toFixed(2).replace('.', ',')}
+                      </span>
+                    </div>
+                    <div className="text-sm text-green-600 font-semibold mt-1">
+                      Economize R$ {(plan.originalPrice - plan.price).toFixed(2).replace('.', ',')}
+                    </div>
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="text-center">
