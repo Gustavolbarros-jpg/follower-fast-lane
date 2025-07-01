@@ -139,7 +139,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="bg-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
-          <h1 className="text-3xl md:text-5xl font-bold text-gold uppercase mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-gold uppercase mb-6 leading-tight">
             GANHE SEGUIDORES REAIS<br />E ATIVOS NO INSTAGRAM
           </h1>
           <h2 className="text-xl md:text-2xl text-[#666666] mb-12 max-w-3xl mx-auto">
@@ -147,11 +147,33 @@ const Index = () => {
           </h2>
           <Button 
             onClick={scrollToPlans}
-            className="bg-neon-blue hover:bg-blue-600 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
           >
             COMPRAR AGORA
             <ArrowDown className="ml-2 w-5 h-5" />
           </Button>
+        </div>
+      </section>
+
+      {/* Depoimentos */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">O Que Nossos Clientes Dizem</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+                <CardContent className="p-6">
+                  <div className="flex mb-3">
+                    {[...Array(testimonial.stars)].map((_, i) => (
+                      <span key={i} className="text-gold text-xl">⭐</span>
+                    ))}
+                  </div>
+                  <p className="text-[#555555] mb-4 italic">"{testimonial.comment}"</p>
+                  <p className="font-semibold text-[#111111]">— {testimonial.user}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -261,28 +283,6 @@ const Index = () => {
                 <h3 className="text-lg font-semibold text-[#333333] mb-2">{benefit.title}</h3>
                 <p className="text-sm text-[#666666]">{benefit.description}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Depoimentos */}
-      <section className="bg-white py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">O Que Nossos Clientes Dizem</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-6">
-                  <div className="flex mb-3">
-                    {[...Array(testimonial.stars)].map((_, i) => (
-                      <span key={i} className="text-gold text-xl">⭐</span>
-                    ))}
-                  </div>
-                  <p className="text-[#555555] mb-4 italic">"{testimonial.comment}"</p>
-                  <p className="font-semibold text-[#111111]">— {testimonial.user}</p>
-                </CardContent>
-              </Card>
             ))}
           </div>
         </div>
