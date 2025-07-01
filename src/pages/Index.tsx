@@ -3,23 +3,96 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
 
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
+  const [usernames, setUsernames] = useState<{[key: number]: string}>({});
 
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleUsernameChange = (planIndex: number, value: string) => {
+    setUsernames(prev => ({
+      ...prev,
+      [planIndex]: value
+    }));
+  };
+
   const plans = [
-    { followers: 100, price: 5.00, originalPrice: 8.00, popular: false },
-    { followers: 500, price: 15.00, originalPrice: 25.00, popular: true },
-    { followers: 1000, price: 25.00, originalPrice: 40.00, popular: false },
-    { followers: 2500, price: 50.00, originalPrice: 80.00, popular: false },
-    { followers: 5000, price: 85.00, originalPrice: 140.00, popular: false },
-    { followers: 10000, price: 150.00, originalPrice: 250.00, popular: false },
+    { 
+      name: "Pacote Iniciante",
+      followers: 1000, 
+      bonusFollowers: 500,
+      bonusEngagement: 10000,
+      price: 97.00, 
+      originalPrice: 197.00, 
+      popular: false,
+      badge: null
+    },
+    { 
+      name: "Pacote Amador",
+      followers: 2500, 
+      bonusFollowers: 1000,
+      bonusEngagement: 20000,
+      price: 149.90, 
+      originalPrice: 297.00, 
+      popular: true,
+      badge: "MAIS VENDIDO"
+    },
+    { 
+      name: "Pacote Avançado",
+      followers: 5000, 
+      bonusFollowers: 1500,
+      bonusEngagement: 30000,
+      price: 197.00, 
+      originalPrice: 497.00, 
+      popular: false,
+      badge: null
+    },
+    { 
+      name: "Pacote Profissional",
+      followers: 10000, 
+      bonusFollowers: 2000,
+      bonusEngagement: 50000,
+      price: 399.00, 
+      originalPrice: 997.00, 
+      popular: false,
+      badge: "MAIOR CUSTO-BENEFÍCIO"
+    },
+    { 
+      name: "Pacote VIP",
+      followers: 20000, 
+      bonusFollowers: 5000,
+      bonusEngagement: 100000,
+      price: 799.00, 
+      originalPrice: 1997.00, 
+      popular: false,
+      badge: null
+    },
+    { 
+      name: "Pacote Premium",
+      followers: 50000, 
+      bonusFollowers: 10000,
+      bonusEngagement: 100000,
+      price: 1200.00, 
+      originalPrice: 3500.00, 
+      popular: false,
+      badge: "ÚLTIMOS 3 PACOTES NESSE VALOR!"
+    },
+    { 
+      name: "Pacote Elite",
+      followers: 100000, 
+      bonusFollowers: 20000,
+      bonusEngagement: 150000,
+      price: 1997.00, 
+      originalPrice: 4500.00, 
+      popular: false,
+      badge: null
+    },
   ];
 
   const benefits = [
@@ -83,15 +156,15 @@ const Index = () => {
 
       {/* Planos e Preços */}
       <section id="planos" className="bg-[#f9f9f9] py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Escolha Seu Plano</h2>
           
           {/* Cronômetro de Escassez */}
           <div className="max-w-md mx-auto mb-16">
-            <CountdownTimer initialHours={2} initialMinutes={30} initialSeconds={0} />
+            <CountdownTimer initialHours={6} initialMinutes={48} initialSeconds={41} />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {plans.map((plan, index) => (
               <Card 
                 key={index}
@@ -101,33 +174,72 @@ const Index = () => {
                 onMouseEnter={() => setHoveredPlan(index)}
                 onMouseLeave={() => setHoveredPlan(null)}
               >
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-modern text-white px-4 py-1">
-                    MAIS POPULAR
+                {plan.badge && (
+                  <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${
+                    plan.popular ? 'bg-purple-modern' : 'bg-red-500'
+                  } text-white`}>
+                    {plan.badge}
                   </Badge>
                 )}
                 <CardHeader className="text-center pb-2">
-                  <CardTitle className="text-2xl font-bold text-[#111111]">
-                    {plan.followers.toLocaleString()} Seguidores
+                  <CardTitle className="text-xl font-bold text-[#111111] mb-2">
+                    {plan.name}
                   </CardTitle>
+                  <div className="space-y-1 text-sm">
+                    <div className="font-semibold text-purple-modern">
+                      {plan.followers.toLocaleString()} Seguidores Instagram
+                    </div>
+                    <div className="text-green-600">
+                      + {plan.bonusFollowers.toLocaleString()} Seguidores Bônus
+                    </div>
+                    <div className="text-blue-600">
+                      +{plan.bonusEngagement.toLocaleString()} Bônus Engajamento
+                    </div>
+                  </div>
                   <CardDescription className="mt-4">
                     <div className="flex items-center justify-center space-x-2">
                       <span className="text-lg text-gray-500 line-through">
                         R$ {plan.originalPrice.toFixed(2).replace('.', ',')}
                       </span>
-                      <span className="text-4xl font-bold text-neon-blue">
-                        R$ {plan.price.toFixed(2).replace('.', ',')}
-                      </span>
                     </div>
-                    <div className="text-sm text-green-600 font-semibold mt-1">
-                      Economize R$ {(plan.originalPrice - plan.price).toFixed(2).replace('.', ',')}
+                    <div className="text-3xl font-bold text-neon-blue">
+                      R$ {plan.price.toFixed(2).replace('.', ',')}
+                    </div>
+                    <div className="text-xs text-red-600 font-semibold mt-1">
+                      Somente Hoje
                     </div>
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <Button className="w-full bg-purple-modern hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-all duration-300">
-                    COMPRAR AGORA
-                  </Button>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center">
+                      <span className="text-green-500 mr-2">✅</span>
+                      <span>100% Seguro e Confidencial</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-green-500 mr-2">✅</span>
+                      <span>Não precisamos da sua senha</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-green-500 mr-2">✅</span>
+                      <span>Seguidores Reais e Brasileiros</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Input 
+                      placeholder="Digite seu @usuario"
+                      value={usernames[index] || ''}
+                      onChange={(e) => handleUsernameChange(index, e.target.value)}
+                      className="text-center"
+                    />
+                    <Button className="w-full bg-purple-modern hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-all duration-300">
+                      COMPRAR AGORA
+                    </Button>
+                    <div className="text-xs text-center text-gray-600">
+                      No PIX ou Cartão de Crédito
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
