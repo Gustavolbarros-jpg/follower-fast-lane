@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -138,7 +139,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="bg-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold text-[#111111] uppercase mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-gold uppercase mb-6 leading-tight">
             GANHE SEGUIDORES REAIS<br />E ATIVOS NO INSTAGRAM
           </h1>
           <h2 className="text-xl md:text-2xl text-[#666666] mb-12 max-w-3xl mx-auto">
