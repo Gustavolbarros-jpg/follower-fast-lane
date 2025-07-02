@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,26 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
-
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
   const [usernames, setUsernames] = useState<{
     [key: number]: string;
   }>({});
-  
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({
       behavior: 'smooth'
     });
   };
-  
   const handleUsernameChange = (planIndex: number, value: string) => {
     setUsernames(prev => ({
       ...prev,
       [planIndex]: value
     }));
   };
-  
   const plans = [{
     name: "Pacote Iniciante",
     followers: 1000,
@@ -83,7 +78,6 @@ const Index = () => {
     popular: false,
     badge: null
   }];
-  
   const benefits = [{
     icon: "⚡",
     title: "Entrega Imediata",
@@ -109,7 +103,6 @@ const Index = () => {
     title: "Experiência",
     description: "Desde 2019 no Digital"
   }];
-  
   const testimonials = [{
     stars: 5,
     comment: "Entrega super rápida! Perfeito para dar aquele up no perfil.",
@@ -127,7 +120,6 @@ const Index = () => {
     comment: "Melhor investimento que fiz para meu Instagram.",
     user: "@anabeauty"
   }];
-  
   const faqs = [{
     question: "Os seguidores são reais?",
     answer: "Sim, trabalhamos com perfis reais para maior credibilidade e engajamento natural."
@@ -146,14 +138,14 @@ const Index = () => {
   }];
 
   // Array de 12 placeholders para o carrossel
-  const carouselImages = Array.from({ length: 12 }, (_, i) => ({
+  const carouselImages = Array.from({
+    length: 12
+  }, (_, i) => ({
     id: i + 1,
     alt: `Depoimento ${i + 1}`,
     src: "/placeholder.svg" // Placeholder temporário
   }));
-  
-  return (
-    <div className="min-h-screen bg-white font-poppins">
+  return <div className="min-h-screen bg-white font-poppins">
       {/* Linha Verde Superior */}
       <div className="bg-[#4ade80] py-2 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -168,13 +160,12 @@ const Index = () => {
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
-          <h2 className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto" style={{ color: '#d84e75' }}>
+          <h2 className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto" style={{
+          color: '#d84e75'
+        }}>
             Os melhores seguidores brasileiro prime com entrega rápida, sem senha e 100% seguro.
           </h2>
-          <Button 
-            onClick={scrollToPlans} 
-            className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0 animate-pulse"
-          >
+          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0 animate-pulse">
             COMPRAR SEGUIDORES AGORA
             <ArrowDown className="ml-2 w-5 h-5" />
           </Button>
@@ -183,12 +174,7 @@ const Index = () => {
 
       {/* Botão Flutuante "Compre Aqui" */}
       <div className="fixed top-1/2 right-6 transform -translate-y-1/2 z-50">
-        <Button 
-          onClick={scrollToPlans}
-          className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-6 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce"
-        >
-          Compre Aqui
-        </Button>
+        
       </div>
 
       {/* Depoimentos */}
@@ -201,21 +187,15 @@ const Index = () => {
           <div className="mb-16">
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
-                {carouselImages.map((image) => (
-                  <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
+                {carouselImages.map(image => <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
                     <div className="p-1">
                       <Card>
                         <CardContent className="flex aspect-[1080/1350] items-center justify-center p-2">
-                          <img 
-                            src={image.src} 
-                            alt={image.alt}
-                            className="w-full h-full object-cover rounded-lg"
-                          />
+                          <img src={image.src} alt={image.alt} className="w-full h-full object-cover rounded-lg" />
                         </CardContent>
                       </Card>
                     </div>
-                  </CarouselItem>
-                ))}
+                  </CarouselItem>)}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -223,19 +203,15 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+            {testimonials.map((testimonial, index) => <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6">
                   <div className="flex mb-3">
-                    {[...Array(testimonial.stars)].map((_, i) => (
-                      <span key={i} className="text-gold text-xl">⭐</span>
-                    ))}
+                    {[...Array(testimonial.stars)].map((_, i) => <span key={i} className="text-gold text-xl">⭐</span>)}
                   </div>
                   <p className="text-[#555555] mb-4 italic">"{testimonial.comment}"</p>
                   <p className="font-semibold text-[#111111]">— {testimonial.user}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -260,32 +236,18 @@ const Index = () => {
       <section id="planos" className="bg-[#f9f9f9] py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-2">
-            Conheça nossos <span style={{ color: '#d84e75' }}>Pacotes</span>
+            Conheça nossos <span style={{
+            color: '#d84e75'
+          }}>Pacotes</span>
           </h2>
           <p className="text-center text-black mb-2">Na compra de qualquer pacote ganhe também Bônus de engajamento: Curtidas + Views!</p>
           <p className="text-center text-black text-sm font-bold mb-8">Escolha o pacote ideal para você 👇</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {plans.map((plan, index) => (
-              <Card 
-                key={index} 
-                className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 ${
-                  plan.popular ? 'border-orange-500 shadow-lg' : 
-                  plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'border-green-500 shadow-lg' : 
-                  'border-[#e0e0e0]'
-                } ${hoveredPlan === index ? 'shadow-2xl' : ''}`} 
-                onMouseEnter={() => setHoveredPlan(index)} 
-                onMouseLeave={() => setHoveredPlan(null)}
-              >
-                {plan.badge && (
-                  <Badge className={`absolute -top-3 left-4 px-3 py-1 text-xs ${
-                    plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : 
-                    plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 
-                    'bg-red-500'
-                  } text-white font-bold shadow-md`}>
+            {plans.map((plan, index) => <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 ${plan.popular ? 'border-orange-500 shadow-lg' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'border-green-500 shadow-lg' : 'border-[#e0e0e0]'} ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
+                {plan.badge && <Badge className={`absolute -top-3 left-4 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md`}>
                     {plan.badge}
-                  </Badge>
-                )}
+                  </Badge>}
                 <CardHeader className="text-center pb-2">
                   <CardTitle className="text-xl font-bold text-[#111111] mb-2">
                     {plan.name}
@@ -332,16 +294,10 @@ const Index = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <Input 
-                      placeholder="Digite seu @usuario" 
-                      value={usernames[index] || ''} 
-                      onChange={(e) => handleUsernameChange(index, e.target.value)} 
-                      className="text-center" 
-                    />
-                    <Button 
-                      className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105"
-                      style={{ backgroundColor: '#874aea' }}
-                    >
+                    <Input placeholder="Digite seu @usuario" value={usernames[index] || ''} onChange={e => handleUsernameChange(index, e.target.value)} className="text-center" />
+                    <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105" style={{
+                  backgroundColor: '#874aea'
+                }}>
                       COMPRAR AGORA
                     </Button>
                     <div className="text-xs text-center text-gray-600">
@@ -349,13 +305,12 @@ const Index = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           
           {/* Aviso dos últimos pacotes */}
           <div className="text-center mt-8">
-            <p className="text-[#555555] text-xs uppercase font-semibold">ÚLTIMOS 3 PACOTES!</p>
+            
           </div>
         </div>
       </section>
@@ -365,15 +320,13 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">Por Que Escolher a Fontana Serviços Digitais?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="text-center group">
+            {benefits.map((benefit, index) => <div key={index} className="text-center group">
                 <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <span className="text-4xl">{benefit.icon}</span>
                 </div>
                 <h3 className="text-lg font-semibold text-[#333333] mb-2">{benefit.title}</h3>
                 <p className="text-sm text-[#666666]">{benefit.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -387,10 +340,7 @@ const Index = () => {
             <p className="text-[#666666] mb-8">
               Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇🏻
             </p>
-            <a 
-              href="https://wa.me/5511999999999" 
-              className="inline-block"
-            >
+            <a href="https://wa.me/5511999999999" className="inline-block">
               <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg animate-pulse">
                 COMPRAR PELO WHATSAPP
               </Button>
@@ -404,16 +354,14 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">Perguntas Frequentes</h2>
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
+            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
                 <AccordionTrigger className="text-left text-[#111111] font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-[#666666] pt-2">
                   {faq.answer}
                 </AccordionContent>
-              </AccordionItem>
-            ))}
+              </AccordionItem>)}
           </Accordion>
         </div>
       </section>
@@ -426,15 +374,9 @@ const Index = () => {
       </footer>
 
       {/* Botão Flutuante WhatsApp */}
-      <a 
-        href="https://wa.me/5511999999999" 
-        className="fixed bottom-6 right-6 bg-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 animate-bounce" 
-        aria-label="Contato via WhatsApp"
-      >
+      <a href="https://wa.me/5511999999999" className="fixed bottom-6 right-6 bg-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 animate-bounce" aria-label="Contato via WhatsApp">
         <MessageSquare className="w-6 h-6" />
       </a>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
