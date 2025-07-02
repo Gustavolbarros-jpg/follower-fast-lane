@@ -50,7 +50,7 @@ const CountdownTimer = ({
   const formatTime = (time: number) => time.toString().padStart(2, '0');
 
   return (
-    <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-lg shadow-lg border-2 border-red-400 animate-pulse">
+    <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-lg shadow-lg border-2 border-red-400 animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]">
       <div className="flex items-center justify-center mb-4">
         <Clock className="w-6 h-6 mr-2" />
         <h3 className="text-xl font-bold">OFERTA LIMITADA!</h3>
