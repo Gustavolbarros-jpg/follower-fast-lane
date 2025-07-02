@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -181,36 +180,51 @@ const Index = () => {
     src: "/placeholder.svg"
   }));
 
-  return <div className="min-h-screen bg-white font-poppins">
-      {/* Linha Verde Superior */}
-      <div className="bg-[#4ade80] py-2 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-white font-semibold text-sm">Compra 100% segura</p>
+  return (
+    <div className="min-h-screen bg-white font-poppins">
+      {/* Add League Spartan font */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+      `}</style>
+      
+      {/* Fixed Header Section */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+        {/* Linha Verde Superior */}
+        <div className="bg-[#4ade80] py-2 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-white font-semibold text-sm">Compra 100% segura</p>
+          </div>
+        </div>
+
+        {/* Header com Logo e Navegação */}
+        <div className="bg-white py-4 px-4 border-b border-gray-100">
+          <div className="max-w-6xl mx-auto flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <img src="/placeholder.svg" alt="Fontana Logo" className="h-12 w-auto" />
+              <span className="text-2xl font-bold" style={{ fontFamily: 'League Spartan, sans-serif' }}>
+                Fontana
+              </span>
+            </div>
+            <nav className="flex space-x-6">
+              <button 
+                onClick={scrollToTestimonials}
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+              >
+                Depoimentos
+              </button>
+              <button 
+                onClick={scrollToPlans}
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+              >
+                Planos
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
 
-      {/* Header com Logo e Navegação */}
-      <div className="bg-white py-4 px-4 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <div className="flex items-center">
-            <img src="/placeholder.svg" alt="Fontana Logo" className="h-12 w-auto" />
-          </div>
-          <nav className="flex space-x-6">
-            <button 
-              onClick={scrollToTestimonials}
-              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
-            >
-              Depoimentos
-            </button>
-            <button 
-              onClick={scrollToPlans}
-              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
-            >
-              Planos
-            </button>
-          </nav>
-        </div>
-      </div>
+      {/* Spacer for fixed header */}
+      <div className="h-24"></div>
 
       {/* Hero Section */}
       <section className="bg-white py-12 px-4">
@@ -220,11 +234,11 @@ const Index = () => {
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
           <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" style={{
-          color: '#d84e75'
-        }}>
+            color: '#d84e75'
+          }}>
             Os melhores seguidores brasileiro prime com entrega rápida, sem senha e 100% seguro.
           </h2>
-          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0 animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
             COMPRAR SEGUIDORES AGORA
             <ArrowDown className="ml-2 w-5 h-5" />
           </Button>
@@ -241,7 +255,8 @@ const Index = () => {
           <div className="mb-8">
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
-                {carouselImages.map(image => <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
+                {carouselImages.map(image => (
+                  <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
                     <div className="p-1">
                       <Card>
                         <CardContent className="flex aspect-[1080/1350] items-center justify-center p-2">
@@ -249,7 +264,8 @@ const Index = () => {
                         </CardContent>
                       </Card>
                     </div>
-                  </CarouselItem>)}
+                  </CarouselItem>
+                ))}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -273,7 +289,9 @@ const Index = () => {
                     <Card className="hover:shadow-lg transition-shadow duration-300">
                       <CardContent className="p-6 text-center">
                         <div className="flex justify-center mb-3">
-                          {[...Array(testimonial.stars)].map((_, i) => <span key={i} className="text-gold text-xl">⭐</span>)}
+                          {[...Array(testimonial.stars)].map((_, i) => (
+                            <span key={i} className="text-gold text-xl">⭐</span>
+                          ))}
                         </div>
                         <p className="text-[#555555] mb-4 italic">"{testimonial.comment}"</p>
                         <p className="font-semibold text-[#111111]">— {testimonial.user}</p>
@@ -299,17 +317,20 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-2">
             Conheça nossos <span style={{
-            color: '#d84e75'
-          }}>Pacotes</span>
+              color: '#d84e75'
+            }}>Pacotes</span>
           </h2>
           <p className="text-center text-black mb-2">Na compra de qualquer pacote ganhe também Bônus de engajamento: Curtidas + Views!</p>
           <p className="text-center text-black text-sm font-bold mb-8">Escolha o pacote ideal para você 👇</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {plans.map((plan, index) => <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-[#874aea] ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
-                {plan.badge && <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md z-10`}>
+            {plans.map((plan, index) => (
+              <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-[#874aea] ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
+                {plan.badge && (
+                  <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md z-10`}>
                     {plan.badge}
-                  </Badge>}
+                  </Badge>
+                )}
                 <CardHeader className="text-center pb-2">
                   <CardTitle className="text-xl font-bold text-[#111111] mb-2">
                     {plan.name}
@@ -356,10 +377,15 @@ const Index = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <Input placeholder="Digite seu @usuario" value={usernames[index] || ''} onChange={e => handleUsernameChange(index, e.target.value)} className="text-center" />
-                    <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105 animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]" style={{
-                  backgroundColor: '#874aea'
-                }}>
+                    <Input 
+                      placeholder="Digite seu @usuario" 
+                      value={usernames[index] || ''} 
+                      onChange={(e) => handleUsernameChange(index, e.target.value)} 
+                      className="text-center" 
+                    />
+                    <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105" style={{
+                      backgroundColor: '#874aea'
+                    }}>
                       COMPRAR AGORA
                     </Button>
                     <div className="text-xs text-center text-gray-600">
@@ -367,12 +393,8 @@ const Index = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>)}
-          </div>
-          
-          {/* Aviso dos últimos pacotes */}
-          <div className="text-center mt-6">
-            <p className="text-xs text-[#555555] uppercase">ÚLTIMOS 3 PACOTES!</p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -382,13 +404,15 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Por Que Escolher a Fontana Serviços Digitais?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => <div key={index} className="text-center group">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="text-center group">
                 <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <span className="text-4xl">{benefit.icon}</span>
                 </div>
                 <h3 className="text-lg font-semibold text-[#333333] mb-2">{benefit.title}</h3>
                 <p className="text-sm text-[#666666]">{benefit.description}</p>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -403,7 +427,7 @@ const Index = () => {
               Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇🏻
             </p>
             <a href="https://wa.me/5511999999999" className="inline-block">
-              <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+              <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                 COMPRAR PELO WHATSAPP
               </Button>
             </a>
@@ -416,14 +440,16 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Perguntas Frequentes</h2>
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
                 <AccordionTrigger className="text-left text-[#111111] font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-[#666666] pt-2">
                   {faq.answer}
                 </AccordionContent>
-              </AccordionItem>)}
+              </AccordionItem>
+            ))}
           </Accordion>
         </div>
       </section>
@@ -439,7 +465,8 @@ const Index = () => {
       <a href="https://wa.me/5511999999999" className="fixed bottom-6 right-6 bg-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 animate-bounce" aria-label="Contato via WhatsApp">
         <MessageSquare className="w-6 h-6" />
       </a>
-    </div>;
+    </div>
+  );
 };
 
 export default Index;
