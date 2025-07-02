@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
+import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
@@ -17,6 +18,12 @@ const Index = () => {
 
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
+  const scrollToTestimonials = () => {
+    document.getElementById('depoimentos')?.scrollIntoView({
       behavior: 'smooth'
     });
   };
@@ -134,6 +141,18 @@ const Index = () => {
     stars: 5,
     comment: "Superou minhas expectativas, muito satisfeita!",
     user: "@gabrielaart"
+  }, {
+    stars: 5,
+    comment: "Servico de qualidade, entrega conforme prometido.",
+    user: "@pedromusic"
+  }, {
+    stars: 5,
+    comment: "Atendimento top e resultados visíveis rapidamente.",
+    user: "@juliabeauty"
+  }, {
+    stars: 5,
+    comment: "Recomendo para quem quer crescer no Instagram!",
+    user: "@rafaelgym"
   }];
 
   const faqs = [{
@@ -170,40 +189,56 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Header com Logo e Navegação */}
+      <div className="bg-white py-4 px-4 border-b border-gray-100">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <div className="flex items-center">
+            <img src="/placeholder.svg" alt="Fontana Logo" className="h-12 w-auto" />
+          </div>
+          <nav className="flex space-x-6">
+            <button 
+              onClick={scrollToTestimonials}
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+            >
+              Depoimentos
+            </button>
+            <button 
+              onClick={scrollToPlans}
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+            >
+              Planos
+            </button>
+          </nav>
+        </div>
+      </div>
+
       {/* Hero Section */}
-      <section className="bg-white py-16 px-4">
+      <section className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
           <h1 className="text-6xl font-bold uppercase mb-6 leading-tight md:text-6xl">
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
-          <h2 className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto" style={{
+          <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" style={{
           color: '#d84e75'
         }}>
             Os melhores seguidores brasileiro prime com entrega rápida, sem senha e 100% seguro.
           </h2>
-          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0 animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0 animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]">
             COMPRAR SEGUIDORES AGORA
             <ArrowDown className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </section>
 
-      {/* Botão Flutuante "Compre Aqui" */}
-      <div className="fixed top-1/2 right-6 transform -translate-y-1/2 z-50">
-        <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]">
-          Compre Aqui
-        </Button>
-      </div>
-
       {/* Depoimentos */}
-      <section className="bg-white py-16 px-4">
+      <section id="depoimentos" className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-4">O Que Nossos Clientes Dizem</h2>
-          <p className="text-center text-[#666666] mb-12">Quem compra na Fontana fica feliz por cada centavo investido 👇🏼</p>
+          <p className="text-center text-[#666666] mb-8">Quem compra na Fontana fica feliz por cada centavo investido 👇🏼</p>
           
           {/* Carrossel de 9 fotos */}
-          <div className="mb-12">
+          <div className="mb-8">
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
                 {carouselImages.map(image => <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
@@ -223,7 +258,15 @@ const Index = () => {
           
           {/* Carrossel automático de depoimentos escritos */}
           <div className="max-w-2xl mx-auto">
-            <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+            <Carousel 
+              className="w-full" 
+              opts={{ align: "start", loop: true }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                }),
+              ]}
+            >
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index}>
@@ -245,14 +288,14 @@ const Index = () => {
       </section>
 
       {/* Gatilho de Escassez */}
-      <section className="bg-white py-12 px-4">
+      <section className="bg-white py-8 px-4">
         <div className="max-w-md mx-auto">
           <CountdownTimer initialHours={6} initialMinutes={48} initialSeconds={41} />
         </div>
       </section>
 
       {/* Planos e Preços */}
-      <section id="planos" className="bg-[#f9f9f9] py-16 px-4">
+      <section id="planos" className="bg-[#f9f9f9] py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-[#111111] mb-2">
             Conheça nossos <span style={{
@@ -264,7 +307,7 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {plans.map((plan, index) => <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-[#874aea] ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
-                {plan.badge && <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md`}>
+                {plan.badge && <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md z-10`}>
                     {plan.badge}
                   </Badge>}
                 <CardHeader className="text-center pb-2">
@@ -314,7 +357,7 @@ const Index = () => {
                   
                   <div className="space-y-3">
                     <Input placeholder="Digite seu @usuario" value={usernames[index] || ''} onChange={e => handleUsernameChange(index, e.target.value)} className="text-center" />
-                    <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105" style={{
+                    <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105 animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]" style={{
                   backgroundColor: '#874aea'
                 }}>
                       COMPRAR AGORA
@@ -328,16 +371,16 @@ const Index = () => {
           </div>
           
           {/* Aviso dos últimos pacotes */}
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <p className="text-xs text-[#555555] uppercase">ÚLTIMOS 3 PACOTES!</p>
           </div>
         </div>
       </section>
 
       {/* Benefícios */}
-      <section className="bg-[#f9f9f9] py-16 px-4">
+      <section className="bg-[#f9f9f9] py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-12">Por Que Escolher a Fontana Serviços Digitais?</h2>
+          <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Por Que Escolher a Fontana Serviços Digitais?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => <div key={index} className="text-center group">
                 <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
@@ -351,16 +394,16 @@ const Index = () => {
       </section>
 
       {/* Seção WhatsApp */}
-      <section className="bg-white py-16 px-4">
+      <section className="bg-white py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
-            <span className="text-6xl mb-4 block">📲</span>
+            <span className="text-6xl mb-4 block">💬</span>
             <h2 className="text-3xl font-bold text-[#111111] mb-4">Compre conosco pelo WhatsApp</h2>
             <p className="text-[#666666] mb-8">
               Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇🏻
             </p>
             <a href="https://wa.me/5511999999999" className="inline-block">
-              <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+              <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]">
                 COMPRAR PELO WHATSAPP
               </Button>
             </a>
@@ -369,9 +412,9 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section className="bg-[#f3f4f6] py-16 px-4">
+      <section className="bg-[#f3f4f6] py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-12">Perguntas Frequentes</h2>
+          <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Perguntas Frequentes</h2>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
                 <AccordionTrigger className="text-left text-[#111111] font-semibold hover:no-underline">
@@ -386,7 +429,7 @@ const Index = () => {
       </section>
 
       {/* Rodapé Simples */}
-      <footer className="bg-white py-8 px-4">
+      <footer className="bg-white py-6 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-[#666666]">© 2025 Fontana Serviços Digitais. Todos os direitos reservados.</p>
         </div>
