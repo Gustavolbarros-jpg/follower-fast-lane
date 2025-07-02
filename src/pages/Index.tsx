@@ -8,32 +8,27 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
 import Autoplay from "embla-carousel-autoplay";
-
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
   const [usernames, setUsernames] = useState<{
     [key: number]: string;
   }>({});
-
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({
       behavior: 'smooth'
     });
   };
-
   const scrollToTestimonials = () => {
     document.getElementById('depoimentos')?.scrollIntoView({
       behavior: 'smooth'
     });
   };
-
   const handleUsernameChange = (planIndex: number, value: string) => {
     setUsernames(prev => ({
       ...prev,
       [planIndex]: value
     }));
   };
-
   const plans = [{
     name: "Pacote Iniciante",
     followers: 1000,
@@ -89,7 +84,6 @@ const Index = () => {
     popular: false,
     badge: null
   }];
-
   const benefits = [{
     icon: "⚡",
     title: "Entrega Imediata",
@@ -115,7 +109,6 @@ const Index = () => {
     title: "Experiência",
     description: "Desde 2019 no Digital"
   }];
-
   const testimonials = [{
     stars: 5,
     comment: "Entrega super rápida! Perfeito para dar aquele up no perfil.",
@@ -153,7 +146,6 @@ const Index = () => {
     comment: "Recomendo para quem quer crescer no Instagram!",
     user: "@rafaelgym"
   }];
-
   const faqs = [{
     question: "Os seguidores são reais?",
     answer: "Sim, trabalhamos com perfis reais para maior credibilidade e engajamento natural."
@@ -179,9 +171,7 @@ const Index = () => {
     alt: `Depoimento ${i + 1}`,
     src: "/placeholder.svg"
   }));
-
-  return (
-    <div className="min-h-screen bg-white font-poppins">
+  return <div className="min-h-screen bg-white font-poppins">
       {/* Add League Spartan font */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
@@ -201,21 +191,17 @@ const Index = () => {
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <img src="/placeholder.svg" alt="Fontana Logo" className="h-12 w-auto" />
-              <span className="text-2xl font-bold" style={{ fontFamily: 'League Spartan, sans-serif' }}>
+              <span className="text-2xl font-bold" style={{
+              fontFamily: 'League Spartan, sans-serif'
+            }}>
                 Fontana
               </span>
             </div>
             <nav className="flex space-x-6">
-              <button 
-                onClick={scrollToTestimonials}
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
-              >
+              <button onClick={scrollToTestimonials} className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">
                 Depoimentos
               </button>
-              <button 
-                onClick={scrollToPlans}
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
-              >
+              <button onClick={scrollToPlans} className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">
                 Planos
               </button>
             </nav>
@@ -229,13 +215,13 @@ const Index = () => {
       {/* Hero Section */}
       <section className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
-          <h1 className="text-6xl font-bold uppercase mb-6 leading-tight md:text-6xl">
+          <h1 className="text-6xl uppercase mb-6 leading-tight md:text-5xl font-bold text-neutral-700">
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
           <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" style={{
-            color: '#d84e75'
-          }}>
+          color: '#d84e75'
+        }}>
             Os melhores seguidores brasileiro prime com entrega rápida, sem senha e 100% seguro.
           </h2>
           <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
@@ -248,15 +234,14 @@ const Index = () => {
       {/* Depoimentos */}
       <section id="depoimentos" className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-4">O Que Nossos Clientes Dizem</h2>
+          <h2 className="text-4xl font-bold text-center mb-4 text-neutral-700">O Que Nossos Clientes Dizem</h2>
           <p className="text-center text-[#666666] mb-8">Quem compra na Fontana fica feliz por cada centavo investido 👇🏼</p>
           
           {/* Carrossel de 9 fotos */}
           <div className="mb-8">
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
-                {carouselImages.map(image => (
-                  <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
+                {carouselImages.map(image => <CarouselItem key={image.id} className="md:basis-1/3 lg:basis-1/4">
                     <div className="p-1">
                       <Card>
                         <CardContent className="flex aspect-[1080/1350] items-center justify-center p-2">
@@ -264,8 +249,7 @@ const Index = () => {
                         </CardContent>
                       </Card>
                     </div>
-                  </CarouselItem>
-                ))}
+                  </CarouselItem>)}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -274,31 +258,24 @@ const Index = () => {
           
           {/* Carrossel automático de depoimentos escritos */}
           <div className="max-w-2xl mx-auto">
-            <Carousel 
-              className="w-full" 
-              opts={{ align: "start", loop: true }}
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                }),
-              ]}
-            >
+            <Carousel className="w-full" opts={{
+            align: "start",
+            loop: true
+          }} plugins={[Autoplay({
+            delay: 3000
+          })]}>
               <CarouselContent>
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index}>
+                {testimonials.map((testimonial, index) => <CarouselItem key={index}>
                     <Card className="hover:shadow-lg transition-shadow duration-300">
                       <CardContent className="p-6 text-center">
                         <div className="flex justify-center mb-3">
-                          {[...Array(testimonial.stars)].map((_, i) => (
-                            <span key={i} className="text-gold text-xl">⭐</span>
-                          ))}
+                          {[...Array(testimonial.stars)].map((_, i) => <span key={i} className="text-gold text-xl">⭐</span>)}
                         </div>
                         <p className="text-[#555555] mb-4 italic">"{testimonial.comment}"</p>
                         <p className="font-semibold text-[#111111]">— {testimonial.user}</p>
                       </CardContent>
                     </Card>
-                  </CarouselItem>
-                ))}
+                  </CarouselItem>)}
               </CarouselContent>
             </Carousel>
           </div>
@@ -315,24 +292,21 @@ const Index = () => {
       {/* Planos e Preços */}
       <section id="planos" className="bg-[#f9f9f9] py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-2">
+          <h2 className="text-4xl font-bold text-center mb-2 text-neutral-700">
             Conheça nossos <span style={{
-              color: '#d84e75'
-            }}>Pacotes</span>
+            color: '#d84e75'
+          }}>Pacotes</span>
           </h2>
           <p className="text-center text-black mb-2">Na compra de qualquer pacote ganhe também Bônus de engajamento: Curtidas + Views!</p>
           <p className="text-center text-black text-sm font-bold mb-8">Escolha o pacote ideal para você 👇</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {plans.map((plan, index) => (
-              <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-[#874aea] ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
-                {plan.badge && (
-                  <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md z-10`}>
+            {plans.map((plan, index) => <Card key={index} className={`relative transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-[#874aea] ${hoveredPlan === index ? 'shadow-2xl' : ''}`} onMouseEnter={() => setHoveredPlan(index)} onMouseLeave={() => setHoveredPlan(null)}>
+                {plan.badge && <Badge className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs ${plan.badge === "MAIS VENDIDO" ? 'bg-[#F97316]' : plan.badge === "MAIOR CUSTO-BENEFÍCIO" ? 'bg-[#10B981]' : 'bg-red-500'} text-white font-bold shadow-md z-10`}>
                     {plan.badge}
-                  </Badge>
-                )}
+                  </Badge>}
                 <CardHeader className="text-center pb-2">
-                  <CardTitle className="text-xl font-bold text-[#111111] mb-2">
+                  <CardTitle className="text-xl font-bold mb-2 text-neutral-700">
                     {plan.name}
                   </CardTitle>
                   <div className="space-y-1 text-sm">
@@ -377,15 +351,10 @@ const Index = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <Input 
-                      placeholder="Digite seu @usuario" 
-                      value={usernames[index] || ''} 
-                      onChange={(e) => handleUsernameChange(index, e.target.value)} 
-                      className="text-center" 
-                    />
+                    <Input placeholder="Digite seu @usuario" value={usernames[index] || ''} onChange={e => handleUsernameChange(index, e.target.value)} className="text-center" />
                     <Button className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105" style={{
-                      backgroundColor: '#874aea'
-                    }}>
+                  backgroundColor: '#874aea'
+                }}>
                       COMPRAR AGORA
                     </Button>
                     <div className="text-xs text-center text-gray-600">
@@ -393,8 +362,7 @@ const Index = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -402,17 +370,15 @@ const Index = () => {
       {/* Benefícios */}
       <section className="bg-[#f9f9f9] py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Por Que Escolher a Fontana Serviços Digitais?</h2>
+          <h2 className="text-4xl font-bold text-center mb-8 text-zinc-700">Por Que Escolher a Fontana Serviços Digitais?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="text-center group">
+            {benefits.map((benefit, index) => <div key={index} className="text-center group">
                 <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <span className="text-4xl">{benefit.icon}</span>
                 </div>
                 <h3 className="text-lg font-semibold text-[#333333] mb-2">{benefit.title}</h3>
                 <p className="text-sm text-[#666666]">{benefit.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -422,7 +388,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
             <span className="text-6xl mb-4 block">💬</span>
-            <h2 className="text-3xl font-bold text-[#111111] mb-4">Compre conosco pelo WhatsApp</h2>
+            <h2 className="text-3xl font-bold mb-4 text-neutral-700">Compre conosco pelo WhatsApp</h2>
             <p className="text-[#666666] mb-8">
               Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇🏻
             </p>
@@ -438,18 +404,16 @@ const Index = () => {
       {/* FAQ */}
       <section className="bg-[#f3f4f6] py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-8">Perguntas Frequentes</h2>
+          <h2 className="text-4xl font-bold text-center mb-8 text-zinc-700">Perguntas Frequentes</h2>
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
-                <AccordionTrigger className="text-left text-[#111111] font-semibold hover:no-underline">
+            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border border-gray-200 px-6">
+                <AccordionTrigger className="text-left font-semibold hover:no-underline text-neutral-700">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-[#666666] pt-2">
                   {faq.answer}
                 </AccordionContent>
-              </AccordionItem>
-            ))}
+              </AccordionItem>)}
           </Accordion>
         </div>
       </section>
@@ -465,8 +429,6 @@ const Index = () => {
       <a href="https://wa.me/5511999999999" className="fixed bottom-6 right-6 bg-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 animate-bounce" aria-label="Contato via WhatsApp">
         <MessageSquare className="w-6 h-6" />
       </a>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
