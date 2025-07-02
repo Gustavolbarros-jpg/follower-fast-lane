@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
+
 const Index = () => {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
   const [usernames, setUsernames] = useState<{
@@ -75,7 +76,7 @@ const Index = () => {
     price: 1200.00,
     originalPrice: 3500.00,
     popular: false,
-    badge: "ÚLTIMOS 3 PACOTES NESSE VALOR!"
+    badge: "ÚLTIMOS 3 PACOTES!"
   }, {
     name: "Pacote Elite",
     followers: 100000,
@@ -144,13 +145,13 @@ const Index = () => {
       {/* Hero Section */}
       <section className="bg-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold text-gold uppercase mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-gold uppercase mb-6 leading-tight">
             GANHE SEGUIDORES REAIS<br />E ATIVOS NO INSTAGRAM
           </h1>
           <h2 className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-red-500">
             Entrega rápida, sem senha e 100% segura.
           </h2>
-          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
+          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
             COMPRAR AGORA
             <ArrowDown className="ml-2 w-5 h-5" />
           </Button>
@@ -253,7 +254,7 @@ const Index = () => {
       {/* Benefícios */}
       <section className="bg-[#f9f9f9] py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">Por Que Escolher a Banhato Social?</h2>
+          <h2 className="text-4xl font-bold text-center text-[#111111] mb-16">Por Que Escolher a Fontana Serviços Digitais?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {benefits.map((benefit, index) => <div key={index} className="text-center group">
                 <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
@@ -288,7 +289,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Banhato Social</h3>
+              <h3 className="text-2xl font-bold mb-4">Fontana Serviços Digitais</h3>
               <p className="text-[#cccccc]">Sua parceira para crescer no Instagram com seguidores reais e ativos.</p>
             </div>
             <div>
@@ -308,7 +309,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-[#cccccc]">
-            <p>© 2025 Banhato Social. Todos os direitos reservados.</p>
+            <p>© 2025 Fontana Serviços Digitais. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
@@ -319,4 +320,5 @@ const Index = () => {
       </a>
     </div>;
 };
+
 export default Index;
