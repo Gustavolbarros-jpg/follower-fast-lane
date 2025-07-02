@@ -190,7 +190,7 @@ const Index = () => {
         <div className="bg-white py-4 px-4 border-b border-gray-100">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-3">
-              <img src="/placeholder.svg" alt="Fontana Logo" className="h-12 w-auto" />
+              
               <span className="text-2xl font-bold" style={{
               fontFamily: 'League Spartan, sans-serif'
             }}>
