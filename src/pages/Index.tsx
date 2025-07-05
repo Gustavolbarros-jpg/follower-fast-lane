@@ -218,7 +218,7 @@ const Index = () => {
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <span className="text-2xl font-bold" style={{ fontFamily: 'League Spartan, sans-serif' }}>
-                Fontana
+                fontana
               </span>
             </div>
             <nav className="flex space-x-6">
@@ -237,7 +237,7 @@ const Index = () => {
 
      <section className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in">
-          <h1 className="text-4xl uppercase mb-6 leading-tight md:text-6xl font-bold text-neutral-700 text-center">
+          <h1 className="text-3xl uppercase mb-6 leading-tight md:text-6xl font-bold text-neutral-700 text-center">
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
