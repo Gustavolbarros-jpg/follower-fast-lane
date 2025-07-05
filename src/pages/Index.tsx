@@ -349,7 +349,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-2 text-neutral-700">
             Conheça nossos <span style={{
-              color: '#d84e75'
+              color: '#f83f8d'
             }}>Pacotes</span>
           </h2>
           <p className="text-center text-black mb-2">Na compra de qualquer pacote ganhe também Bônus de engajamento: Curtidas + Views!</p>
@@ -395,7 +395,7 @@ const Index = () => {
                         R$ {plan.originalPrice.toFixed(2).replace('.', ',')}
                       </span>
                     </div>
-                    <div className="text-3xl font-bold text-neon-blue">
+                    <div className="text-3xl font-bold" style={{ color: '#f83f8d' }}>
                       R$ {plan.price.toFixed(2).replace('.', ',')}
                     </div>
                     <div className="text-xs text-red-600 font-semibold mt-1">
