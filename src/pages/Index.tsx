@@ -395,7 +395,7 @@ const Index = () => {
                         R$ {plan.originalPrice.toFixed(2).replace('.', ',')}
                       </span>
                     </div>
-                    <div className="text-3xl font-bold" style={{ color: '#d84e75' }}>
+                    <div className="text-3xl font-bold" style={{ color: '#874aea' }}>
                       R$ {plan.price.toFixed(2).replace('.', ',')}
                     </div>
                     <div className="text-xs text-red-600 font-semibold mt-1">
