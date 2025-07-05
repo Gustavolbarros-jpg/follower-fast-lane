@@ -241,20 +241,20 @@ const Index = () => {
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
-          <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-center" style={{
+          <h2 className="text-x md:text-2xl mb-8 max-w-3xl mx-auto text-center" style={{
             color: '#d84e75'
           }}>
             Os melhores seguidores brasileiros prime com entrega rápida, sem senha e 100% seguro.
           </h2>
-          <Button onClick={scrollToPlans} className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 border-0">
+          <Button onClick={scrollToPlans} className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-5 py-4 text-xl font-semibold rounded-lg transition-all duration-300 border-0">
             COMPRAR SEGUIDORES AGORA
           </Button>
         </div>
       </section>
 
-      <section id="depoimentos" className="bg-white py-6 px-4">
+      <section id="depoimentos" className="bg-white py-0px-2">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-neutral-700">O Que Nossos Clientes Dizem</h2>
+          <h2 className="text-2xl font-bold text-center mb-4 text-neutral-700">O Que Nossos Clientes Dizem</h2>
           <p className="text-center text-[#666666] mb-8">Quem compra na Fontana fica feliz por cada centavo investido 👇🏼</p>
           
           <div className="mb-8">
@@ -415,7 +415,7 @@ const Index = () => {
         </div>
       </section>
       
-      <section className="bg-white py-12">
+      <section className="bg-white py-0">
         <img 
           src="/logosite.png" // Lembre-se de trocar "sua-foto.jpeg" pelo nome real do seu arquivo
           alt="Descrição da sua imagem aqui" 
@@ -423,7 +423,7 @@ const Index = () => {
         />
       </section>
       
-      <section className="bg-[#f3f4f6] py-6 px-4">
+      <section className="bg-[#f3f4f6] py-4 px-2">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-8 text-zinc-700">Perguntas Frequentes</h2>
           <Accordion type="single" collapsible className="space-y-4">
