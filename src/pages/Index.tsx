@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,7 +79,7 @@ const Index = () => {
     price: 799.00,
     originalPrice: 1997.00,
     popular: false,
-    badge: "MAIOR CUSTO-BENEFÍCIO"
+    badge: null
   }, {
     name: "Pacote Premium",
     followers: 50000,
@@ -186,6 +187,44 @@ const Index = () => {
       <style dangerouslySetInnerHTML={{
         __html: `
           @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+          
+          @keyframes pulse-button {
+            0% {
+              transform: scale(1);
+              box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.4);
+            }
+            50% {
+              transform: scale(1.02);
+              box-shadow: 0 0 0 8px rgba(147, 51, 234, 0.1);
+            }
+            100% {
+              transform: scale(1);
+              box-shadow: 0 0 0 0 rgba(147, 51, 234, 0);
+            }
+          }
+          
+          @keyframes pulse-whatsapp {
+            0% {
+              transform: scale(1);
+              box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+            }
+            50% {
+              transform: scale(1.02);
+              box-shadow: 0 0 0 8px rgba(37, 211, 102, 0.1);
+            }
+            100% {
+              transform: scale(1);
+              box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+          }
+          
+          .pulse-main-button {
+            animation: pulse-button 3s infinite;
+          }
+          
+          .pulse-whatsapp-button {
+            animation: pulse-whatsapp 3s infinite;
+          }
         `
       }} />
       
@@ -235,7 +274,7 @@ const Index = () => {
           }}>
             Os melhores seguidores brasileiro prime com entrega rápida, sem senha e 100% seguro.
           </h2>
-          <Button onClick={scrollToPlans} className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
+          <Button onClick={scrollToPlans} className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 border-0">
             COMPRAR SEGUIDORES AGORA
           </Button>
         </div>
@@ -434,7 +473,7 @@ const Index = () => {
               Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇🏻
             </p>
             <a href="https://wa.me/5511999999999" className="inline-block">
-              <Button className="bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Button className="pulse-whatsapp-button bg-whatsapp hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300">
                 COMPRAR PELO WHATSAPP
               </Button>
             </a>
