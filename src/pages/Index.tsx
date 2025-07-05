@@ -235,13 +235,15 @@ const Index = () => {
 
       <div className="h-24"></div>
 
-      <section className="bg-white py-12 px-4">
+     <section className="bg-white py-12 px-4">
         <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in">
-          <h1 className="text-6xl uppercase mb-6 leading-tight md:text-5xl font-bold text-neutral-700">
+          <h1 className="text-4xl uppercase mb-6 leading-tight md:text-6xl font-bold text-neutral-700 text-center">
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
           </h1>
-          <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" style={{ color: '#d84e75' }}>
+          <h2 className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-center" style={{
+            color: '#d84e75'
+          }}>
             Os melhores seguidores brasileiros prime com entrega rápida, sem senha e 100% seguro.
           </h2>
           <Button onClick={scrollToPlans} className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-12 py-6 text-xl font-semibold rounded-lg transition-all duration-300 border-0">
