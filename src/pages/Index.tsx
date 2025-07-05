@@ -236,7 +236,7 @@ const Index = () => {
       <div className="h-24"></div>
 
       <section className="bg-white py-12 px-4">
-        <div className="max-w-6xl mx-auto text-center animate-fade-in">
+        <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in">
           <h1 className="text-6xl uppercase mb-6 leading-tight md:text-5xl font-bold text-neutral-700">
             GANHE <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">SEGUIDORES</span> REAIS<br />
             E ATIVOS NO <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">INSTAGRAM</span>
