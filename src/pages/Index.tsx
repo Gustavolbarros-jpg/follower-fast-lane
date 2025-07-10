@@ -5,8 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-// CORREÇÃO: Removi o ícone 'Whatsapp' que não existe.
-import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock } from 'lucide-react';
+import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock, Loader2 } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
 import Autoplay from "embla-carousel-autoplay";
 
@@ -15,6 +14,12 @@ const Index = () => {
   const [usernames, setUsernames] = useState<{
     [key: number]: string;
   }>({});
+  const [loading, setLoading] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  // URL da sua função do Supabase - SUBSTITUA PELA SUA URL REAL
+const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkout';
 
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({
@@ -33,6 +38,76 @@ const Index = () => {
       ...prev,
       [planIndex]: value
     }));
+  };
+
+  const handlePurchase = async (planIndex: number) => {
+    const usuario = usernames[planIndex];
+    
+    // Validação básica
+    if (!usuario || !usuario.trim()) {
+      alert('Por favor, digite seu @usuario do Instagram');
+      return;
+    }
+
+    // Remove @ se o usuário digitou
+    const cleanUsername = usuario.replace('@', '');
+    
+    if (cleanUsername.length < 3) {
+      alert('Por favor, digite um nome de usuário válido');
+      return;
+    }
+
+    // Ativa loading para este botão específico
+    setLoading(prev => ({
+      ...prev,
+      [planIndex]: true
+    }));
+
+    try {
+      console.log('Enviando pedido para:', SUPABASE_FUNCTION_URL);
+      console.log('Dados:', { usuario: cleanUsername });
+
+      const response = await fetch(SUPABASE_FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tb2J6bnh3ZWtscXRlc2t1Z2J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NTc3MjQsImV4cCI6MjA1MjAzMzcyNH0.cZh0J_YQZpPQ7YhOKuVjlzTgdvyYIIWLDhGjNJ8zQUg'}`
+        },
+        body: JSON.stringify({ 
+          usuario: cleanUsername,
+          plano: plans[planIndex].name,
+          preco: plans[planIndex].price
+        })
+      });
+
+      console.log('Status da resposta:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Erro da API:', errorText);
+        throw new Error(`Erro na API: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('Resposta da API:', data);
+
+      if (data.success && data.checkout_url) {
+        // Redireciona para o checkout da Stripe
+        window.location.href = data.checkout_url;
+      } else {
+        throw new Error(data.error || 'Erro desconhecido');
+      }
+
+    } catch (error) {
+      console.error('Erro ao processar pagamento:', error);
+      alert(`Erro ao processar pagamento: ${error.message}`);
+    } finally {
+      // Remove loading
+      setLoading(prev => ({
+        ...prev,
+        [planIndex]: false
+      }));
+    }
   };
 
   const plans = [{
@@ -365,10 +440,19 @@ const Index = () => {
                       className="text-center" 
                     />
                     <Button 
-                      className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105" 
+                      className="w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{ backgroundColor: '#874aea' }}
+                      onClick={() => handlePurchase(index)}
+                      disabled={loading[index]}
                     >
-                      COMPRAR AGORA
+                      {loading[index] ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          PROCESSANDO...
+                        </>
+                      ) : (
+                        'COMPRAR AGORA'
+                      )}
                     </Button>
                     <div className="text-xs text-center text-gray-600">No PIX ou Cartão de Crédito</div>
                   </div>
@@ -399,7 +483,6 @@ const Index = () => {
       <section className="bg-white py-6 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
-            {/* CORREÇÃO: Voltamos a usar o ícone 'MessageSquare' que existe */}
             <img src="/iconewpp.png" alt="Ícone do WhatsApp" className="w-16 h-16 mx-auto mb-4" />
             
             <h2 className="text-3xl font-bold mb-4 text-neutral-700">Compre conosco pelo WhatsApp</h2>
@@ -417,8 +500,8 @@ const Index = () => {
       
       <section className="bg-white py-0">
         <img 
-          src="/logosite.png" // Lembre-se de trocar "sua-foto.jpeg" pelo nome real do seu arquivo
-          alt="Descrição da sua imagem aqui" 
+          src="/logosite.png"
+          alt="Logo da Fontana" 
           className="w-full h-auto"
         />
       </section>
