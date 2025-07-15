@@ -19,9 +19,7 @@ const Index = () => {
   }>({});
 
   // URL da sua função do Supabase - SUBSTITUA PELA SUA URL REAL
-const SUPABASE_FUNCTION_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.co/criar-checkout '
-
-';
+const SUPABASE_FUNCTION_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.co/criar-checkout'
 
 
 
