@@ -1,9 +1,47 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Zap, Phone, MessageSquare, ArrowDown, ArrowUp, Clock, Loader2 } from 'lucide-react';
+import CountdownTimer from '@/components/CountdownTimer';
+import Autoplay from "embla-carousel-autoplay";
+
+const Index = () => {
+  const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
+  const [usernames, setUsernames] = useState<{
+    [key: number]: string;
+  }>({});
+  const [loading, setLoading] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  // URL da sua função do Supabase - SUBSTITUA PELA SUA URL REAL
+const SUPABASE_FUNCTION_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.co/criar-checkout'
+
+
+
+  const scrollToPlans = () => {
+  
+  const scrollToTestimonials = () => {
+    document.getElementById('depoimentos')?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
+  const handleUsernameChange = (planIndex: number, value: string) => {
+    setUsernames(prev => ({
+      ...prev,
+      [planIndex]: value
+    }));
+  };
+// ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
+// ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
 
 const BACKEND_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.co';
+
 
 const plans = [
   {
@@ -13,6 +51,8 @@ const plans = [
     bonusEngagement: 10000,
     price: 97.00,
     originalPrice: 197.00,
+    popular: false,
+    badge: null,
     caktoUrl: "https://pay.cakto.com.br/39j3r5j_471102"
   },
   {
@@ -22,6 +62,8 @@ const plans = [
     bonusEngagement: 20000,
     price: 149.90,
     originalPrice: 297.00,
+    popular: false,
+    badge: null,
     caktoUrl: "https://pay.cakto.com.br/39nx9jr_474721"
   },
   {
@@ -31,6 +73,8 @@ const plans = [
     bonusEngagement: 30000,
     price: 197.00,
     originalPrice: 497.00,
+    popular: true,
+    badge: "MAIS VENDIDO",
     caktoUrl: "https://pay.cakto.com.br/ysjjsww_474722"
   },
   {
@@ -40,6 +84,8 @@ const plans = [
     bonusEngagement: 50000,
     price: 399.00,
     originalPrice: 997.00,
+    popular: false,
+    badge: null,
     caktoUrl: "https://pay.cakto.com.br/6ozb4xt_474724"
   },
   {
@@ -49,6 +95,8 @@ const plans = [
     bonusEngagement: 100000,
     price: 799.00,
     originalPrice: 1997.00,
+    popular: false,
+    badge: null,
     caktoUrl: "https://pay.cakto.com.br/7ddzkg3_474726"
   },
   {
@@ -58,104 +106,152 @@ const plans = [
     bonusEngagement: 100000,
     price: 1200.00,
     originalPrice: 3500.00,
+    popular: false,
+    badge: null,
     caktoUrl: "https://pay.cakto.com.br/dfuhu7t_474727"
   }
 ];
 
-function validarUsuarioInstagram(usuario: string): boolean {
-  const cleaned = usuario.replace('@', '').trim();
+// Frontend - handlePurchase CORRIGIDO
+const handlePurchase = async (planIndex) => {
+  const rawUsername = usernames[planIndex] || '';
+  const cleanUsername = rawUsername.replace('@', '').trim();
+
+  if (cleanUsername.length < 3) {
+    alert('Digite um @usuário válido');
+    return;
+  }
+
+  const planoSelecionado = plans[planIndex];
+  setLoading(prev => ({ ...prev, [planIndex]: true }));
+
+  try {
+    // 1. CRIAR PEDIDO NO BANCO PRIMEIRO - USANDO A URL CORRETA
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: cleanUsername,
+        plano: planoSelecionado.name,
+        preco: planoSelecionado.price,
+        quantidade_seguidores: planoSelecionado.followers,
+        bonus_followers: planoSelecionado.bonusFollowers,
+        bonus_engagement: planoSelecionado.bonusEngagement
+      })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Erro ao criar pedido');
+    }
+
+    // 2. REDIRECIONAR PARA A URL ESPECÍFICA DO PRODUTO
+    const caktoUrl = `${planoSelecionado.caktoUrl}?customer_identifier=${cleanUsername}`;
+    console.log(`🔄 Redirecionando para: ${caktoUrl}`);
+    
+    window.location.href = caktoUrl;
+
+  } catch (error) {
+    console.error('Erro:', error);
+    alert('Erro ao processar pedido: ' + error.message);
+  } finally {
+    setLoading(prev => ({ ...prev, [planIndex]: false }));
+  }
+};
+
+// Função para criar checkout - USANDO A URL CORRETA
+async function criarCheckout(plan, usuarioInstagram) {
+  try {
+    console.log('🚀 Criando checkout para:', plan.name);
+    console.log('👤 Usuário:', usuarioInstagram);
+    
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: usuarioInstagram,
+        plano: plan.name,
+        preco: plan.price,
+        quantidade_seguidores: plan.followers,
+        bonus_followers: plan.bonusFollowers,
+        bonus_engagement: plan.bonusEngagement
+      })
+    });
+
+    console.log('📡 Response status:', response.status);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Erro HTTP:', response.status, errorText);
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('📄 Result:', result);
+    
+    if (result.success) {
+      console.log('✅ Pedido criado com sucesso! ID:', result.pedido.id);
+      
+      // Aguardar um pouco antes de redirecionar
+      setTimeout(() => {
+        window.location.href = plan.caktoUrl;
+      }, 1000);
+      
+    } else {
+      console.error('❌ Erro no resultado:', result.error);
+      alert('Erro ao processar pedido: ' + result.error);
+    }
+    
+  } catch (error) {
+    console.error('❌ Erro de conexão:', error);
+    alert('Erro de conexão. Verifique sua internet e tente novamente.');
+  }
+}
+
+// Função para validar usuário do Instagram
+function validarUsuarioInstagram(usuario) {
+  // Remove @ se tiver
+  usuario = usuario.replace('@', '');
+  
+  // Validar formato básico
   const regex = /^[a-zA-Z0-9._]{1,30}$/;
-  return regex.test(cleaned);
+  return regex.test(usuario);
 }
 
-export default function Planos() {
-  const [usernames, setUsernames] = useState<{ [index: number]: string }>({});
-  const [loading, setLoading] = useState<{ [index: number]: boolean }>({});
-
-  const handleUsernameChange = (index: number, value: string) => {
-    setUsernames(prev => ({ ...prev, [index]: value }));
-  };
-
-  const criarCheckout = async (plan: any, username: string) => {
-    try {
-      const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          usuario_instagram: username,
-          plano: plan.name,
-          preco: plan.price,
-          quantidade_seguidores: plan.followers,
-          bonus_followers: plan.bonusFollowers,
-          bonus_engagement: plan.bonusEngagement
-        })
-      });
-
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.error || 'Erro ao criar pedido');
-      }
-
-      // Redireciona para o checkout da Cakto com o identificador do cliente
-      const checkoutUrl = `${plan.caktoUrl}?customer_identifier=${username}`;
-      window.location.href = checkoutUrl;
-    } catch (err: any) {
-      alert(`Erro: ${err.message}`);
-      console.error(err);
-    }
-  };
-
-  const handlePurchase = async (index: number) => {
-    const raw = usernames[index] || '';
-    const username = raw.replace('@', '').trim();
-
-    if (!username) {
-      alert('Digite seu @usuário do Instagram');
-      return;
-    }
-
-    if (!validarUsuarioInstagram(username)) {
-      alert('Usuário inválido. Sem @, sem espaços, apenas letras, números, . ou _');
-      return;
-    }
-
-    setLoading(prev => ({ ...prev, [index]: true }));
-
-    await criarCheckout(plans[index], username);
-
-    setLoading(prev => ({ ...prev, [index]: false }));
-  };
-
-  return (
-    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-4">
-      {plans.map((plan, index) => (
-        <Card key={index} className="shadow-xl p-4">
-          <CardHeader>
-            <CardTitle>{plan.name}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Seguidores: {plan.followers}</p>
-            <p>Bônus: +{plan.bonusFollowers} seguidores e +{plan.bonusEngagement} alcance</p>
-            <p>
-              Preço: <s>R${plan.originalPrice}</s> <strong className="text-green-600">R${plan.price}</strong>
-            </p>
-            <Input
-              className="my-2"
-              placeholder="Seu @usuário do Instagram"
-              value={usernames[index] || ''}
-              onChange={(e) => handleUsernameChange(index, e.target.value)}
-            />
-            <Button onClick={() => handlePurchase(index)} disabled={loading[index]}>
-              {loading[index] ? 'Processando...' : 'Comprar Agora'}
-            </Button>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
+// Função para testar conexão - USANDO A URL CORRETA
+async function testarConexao() {
+  try {
+    console.log('🔍 Testando conexão...');
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: "teste_conexao",
+        plano: "Teste",
+        preco: 1.00,
+        quantidade_seguidores: 1
+      })
+    });
+    
+    console.log('✅ Conexão OK! Status:', response.status);
+    return true;
+  } catch (error) {
+    console.error('❌ Erro de conexão:', error);
+    return false;
+  }
 }
 
+// Eent listeners
 ;
   const benefits = [{
     icon: "⚡",
@@ -522,7 +618,7 @@ export default function Planos() {
       </footer>
       </div>
   );
-};
+}};
    
 
 export default Index;
