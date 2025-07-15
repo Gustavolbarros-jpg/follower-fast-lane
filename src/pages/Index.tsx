@@ -19,7 +19,9 @@ const Index = () => {
   }>({});
 
   // URL da sua função do Supabase - SUBSTITUA PELA SUA URL REAL
-const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkout';
+const SUPABASE_FUNCTION_URL = 'https://4855bbaa3130.ngrok-free.app/functions/v1/criar-checkout';
+
+
 
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({
@@ -39,78 +41,13 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
       [planIndex]: value
     }));
   };
+// ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
+// ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
+const BACKEND_URL = 'https://dxlwwzahqcgcpajunbbv.supabase.co';
 
-  const handlePurchase = async (planIndex: number) => {
-    const usuario = usernames[planIndex];
-    
-    // Validação básica
-    if (!usuario || !usuario.trim()) {
-      alert('Por favor, digite seu @usuario do Instagram');
-      return;
-    }
 
-    // Remove @ se o usuário digitou
-    const cleanUsername = usuario.replace('@', '');
-    
-    if (cleanUsername.length < 3) {
-      alert('Por favor, digite um nome de usuário válido');
-      return;
-    }
-
-    // Ativa loading para este botão específico
-    setLoading(prev => ({
-      ...prev,
-      [planIndex]: true
-    }));
-
-    try {
-      console.log('Enviando pedido para:', SUPABASE_FUNCTION_URL);
-      console.log('Dados:', { usuario: cleanUsername });
-
-      const response = await fetch(SUPABASE_FUNCTION_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tb2J6bnh3ZWtscXRlc2t1Z2J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NTc3MjQsImV4cCI6MjA1MjAzMzcyNH0.cZh0J_YQZpPQ7YhOKuVjlzTgdvyYIIWLDhGjNJ8zQUg'}`
-        },
-        body: JSON.stringify({ 
-          usuario: cleanUsername,
-          plano: plans[planIndex].name,
-          preco: plans[planIndex].price
-        })
-      });
-
-      console.log('Status da resposta:', response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Erro da API:', errorText);
-        throw new Error(`Erro na API: ${response.status} - ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log('Resposta da API:', data);
-
-      if (data.success && data.checkout_url) {
-        // Redireciona para o checkout da Stripe
-        window.location.href = data.checkout_url;
-      } else {
-        throw new Error(data.error || 'Erro desconhecido');
-      }
-
-    } catch (error) {
-      console.error('Erro ao processar pagamento:', error);
-      alert(`Erro ao processar pagamento: ${error.message}`);
-    } finally {
-      // Remove loading
-      setLoading(prev => ({
-        ...prev,
-        [planIndex]: false
-      }));
-    }
-  };
-
-  const plans = [{
+const plans = [
+  {
     name: "Pacote Iniciante",
     followers: 1000,
     bonusFollowers: 500,
@@ -118,8 +55,10 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 97.00,
     originalPrice: 197.00,
     popular: false,
-    badge: null
-  }, {
+    badge: null,
+    caktoUrl: "https://pay.cakto.com.br/39j3r5j_471102"
+  },
+  {
     name: "Pacote Amador",
     followers: 2500,
     bonusFollowers: 1000,
@@ -127,8 +66,10 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 149.90,
     originalPrice: 297.00,
     popular: false,
-    badge: null
-  }, {
+    badge: null,
+    caktoUrl: "https://pay.cakto.com.br/39nx9jr_474721"
+  },
+  {
     name: "Pacote Avançado",
     followers: 5000,
     bonusFollowers: 1500,
@@ -136,8 +77,10 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 197.00,
     originalPrice: 497.00,
     popular: true,
-    badge: "MAIS VENDIDO"
-  }, {
+    badge: "MAIS VENDIDO",
+    caktoUrl: "https://pay.cakto.com.br/ysjjsww_474722"
+  },
+  {
     name: "Pacote Profissional",
     followers: 10000,
     bonusFollowers: 2000,
@@ -145,8 +88,10 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 399.00,
     originalPrice: 997.00,
     popular: false,
-    badge: null
-  }, {
+    badge: null,
+    caktoUrl: "https://pay.cakto.com.br/6ozb4xt_474724"
+  },
+  {
     name: "Pacote VIP",
     followers: 20000,
     bonusFollowers: 5000,
@@ -154,8 +99,10 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 799.00,
     originalPrice: 1997.00,
     popular: false,
-    badge: null
-  }, {
+    badge: null,
+    caktoUrl: "https://pay.cakto.com.br/7ddzkg3_474726"
+  },
+  {
     name: "Pacote Premium",
     followers: 50000,
     bonusFollowers: 10000,
@@ -163,9 +110,188 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     price: 1200.00,
     originalPrice: 3500.00,
     popular: false,
-    badge: null
-  }];
+    badge: null,
+    caktoUrl: "https://pay.cakto.com.br/dfuhu7t_474727"
+  }
+];
 
+// Frontend - handlePurchase CORRIGIDO
+const handlePurchase = async (planIndex) => {
+  const rawUsername = usernames[planIndex] || '';
+  const cleanUsername = rawUsername.replace('@', '').trim();
+
+  if (cleanUsername.length < 3) {
+    alert('Digite um @usuário válido');
+    return;
+  }
+
+  const planoSelecionado = plans[planIndex];
+  setLoading(prev => ({ ...prev, [planIndex]: true }));
+
+  try {
+    // 1. CRIAR PEDIDO NO BANCO PRIMEIRO - USANDO A URL CORRETA
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: cleanUsername,
+        plano: planoSelecionado.name,
+        preco: planoSelecionado.price,
+        quantidade_seguidores: planoSelecionado.followers,
+        bonus_followers: planoSelecionado.bonusFollowers,
+        bonus_engagement: planoSelecionado.bonusEngagement
+      })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Erro ao criar pedido');
+    }
+
+    // 2. REDIRECIONAR PARA A URL ESPECÍFICA DO PRODUTO
+    const caktoUrl = `${planoSelecionado.caktoUrl}?customer_identifier=${cleanUsername}`;
+    console.log(`🔄 Redirecionando para: ${caktoUrl}`);
+    
+    window.location.href = caktoUrl;
+
+  } catch (error) {
+    console.error('Erro:', error);
+    alert('Erro ao processar pedido: ' + error.message);
+  } finally {
+    setLoading(prev => ({ ...prev, [planIndex]: false }));
+  }
+};
+
+// Função para criar checkout - USANDO A URL CORRETA
+async function criarCheckout(plan, usuarioInstagram) {
+  try {
+    console.log('🚀 Criando checkout para:', plan.name);
+    console.log('👤 Usuário:', usuarioInstagram);
+    
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: usuarioInstagram,
+        plano: plan.name,
+        preco: plan.price,
+        quantidade_seguidores: plan.followers,
+        bonus_followers: plan.bonusFollowers,
+        bonus_engagement: plan.bonusEngagement
+      })
+    });
+
+    console.log('📡 Response status:', response.status);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Erro HTTP:', response.status, errorText);
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('📄 Result:', result);
+    
+    if (result.success) {
+      console.log('✅ Pedido criado com sucesso! ID:', result.pedido.id);
+      
+      // Aguardar um pouco antes de redirecionar
+      setTimeout(() => {
+        window.location.href = plan.caktoUrl;
+      }, 1000);
+      
+    } else {
+      console.error('❌ Erro no resultado:', result.error);
+      alert('Erro ao processar pedido: ' + result.error);
+    }
+    
+  } catch (error) {
+    console.error('❌ Erro de conexão:', error);
+    alert('Erro de conexão. Verifique sua internet e tente novamente.');
+  }
+}
+
+// Função para validar usuário do Instagram
+function validarUsuarioInstagram(usuario) {
+  // Remove @ se tiver
+  usuario = usuario.replace('@', '');
+  
+  // Validar formato básico
+  const regex = /^[a-zA-Z0-9._]{1,30}$/;
+  return regex.test(usuario);
+}
+
+// Função para testar conexão - USANDO A URL CORRETA
+async function testarConexao() {
+  try {
+    console.log('🔍 Testando conexão...');
+    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({
+        usuario_instagram: "teste_conexao",
+        plano: "Teste",
+        preco: 1.00,
+        quantidade_seguidores: 1
+      })
+    });
+    
+    console.log('✅ Conexão OK! Status:', response.status);
+    return true;
+  } catch (error) {
+    console.error('❌ Erro de conexão:', error);
+    return false;
+  }
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // Testar conexão quando a página carregar
+  testarConexao();
+  
+  // Configurar botões
+  const buttons = document.querySelectorAll('.btn-comprar');
+  
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+      const usuarioInstagram = document.getElementById('usuario-instagram').value.trim();
+      
+      if (!usuarioInstagram) {
+        alert('Por favor, informe seu usuário do Instagram');
+        document.getElementById('usuario-instagram').focus();
+        return;
+      }
+      
+      if (!validarUsuarioInstagram(usuarioInstagram)) {
+        alert('Por favor, informe um usuário válido do Instagram (sem @ e sem espaços)');
+        document.getElementById('usuario-instagram').focus();
+        return;
+      }
+      
+      // Desabilitar botão durante o processamento
+      button.disabled = true;
+      button.textContent = 'Processando...';
+      
+      // Usar o plano correspondente ao índice do botão
+      criarCheckout(plans[index], usuarioInstagram)
+        .finally(() => {
+          // Reabilitar botão
+          button.disabled = false;
+          button.textContent = 'Comprar Agora';
+        });
+    });
+  });
+});
   const benefits = [{
     icon: "⚡",
     title: "Entrega Imediata",
@@ -259,7 +385,7 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
     { id: 9, alt: "Depoimento 9", src: "/depoimento-9.jpeg" },
   ];
 
-  return (
+     return (
     <div className="min-h-screen bg-white font-poppins">
       <style dangerouslySetInnerHTML={{
         __html: `
@@ -529,8 +655,9 @@ const SUPABASE_FUNCTION_URL = 'http://localhost:54321/functions/v1/criar-checkou
           <p className="text-[#666666]">© 2025 Fontana Serviços Digitais. Todos os direitos reservados.</p>
         </div>
       </footer>
-    </div>
+      </div>
   );
 };
+   
 
 export default Index;

@@ -1,0 +1,2 @@
+[functions."criar-checkout"]
+verify_jwt = false

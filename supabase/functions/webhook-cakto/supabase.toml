@@ -1,0 +1,2 @@
+[functions."webhook-cakto"]
+verify_jwt = false
