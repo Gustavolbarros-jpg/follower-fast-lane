@@ -24,7 +24,11 @@ const SUPABASE_FUNCTION_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.c
 
 
   const scrollToPlans = () => {
-  
+    document.getElementById('planos')?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
   const scrollToTestimonials = () => {
     document.getElementById('depoimentos')?.scrollIntoView({
       behavior: 'smooth'
@@ -39,8 +43,7 @@ const SUPABASE_FUNCTION_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.c
   };
 // ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
 // ⚠️ ATUALIZAR ESSA URL PARA A NOVA!
-
-const BACKEND_URL = 'https://dxlwwzahqcgcpajunbbv.functions.supabase.co';
+const BACKEND_URL = 'https://dxlwwzahqcgcpajunbbv.supabase.co';
 
 
 const plans = [
@@ -251,8 +254,44 @@ async function testarConexao() {
   }
 }
 
-// Eent listeners
-;
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // Testar conexão quando a página carregar
+  testarConexao();
+  
+  // Configurar botões
+  const buttons = document.querySelectorAll('.btn-comprar');
+  
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+      const usuarioInstagram = document.getElementById('usuario-instagram').value.trim();
+      
+      if (!usuarioInstagram) {
+        alert('Por favor, informe seu usuário do Instagram');
+        document.getElementById('usuario-instagram').focus();
+        return;
+      }
+      
+      if (!validarUsuarioInstagram(usuarioInstagram)) {
+        alert('Por favor, informe um usuário válido do Instagram (sem @ e sem espaços)');
+        document.getElementById('usuario-instagram').focus();
+        return;
+      }
+      
+      // Desabilitar botão durante o processamento
+      button.disabled = true;
+      button.textContent = 'Processando...';
+      
+      // Usar o plano correspondente ao índice do botão
+      criarCheckout(plans[index], usuarioInstagram)
+        .finally(() => {
+          // Reabilitar botão
+          button.disabled = false;
+          button.textContent = 'Comprar Agora';
+        });
+    });
+  });
+});
   const benefits = [{
     icon: "⚡",
     title: "Entrega Imediata",
@@ -618,7 +657,7 @@ async function testarConexao() {
       </footer>
       </div>
   );
-}};
+};
    
 
 export default Index;
