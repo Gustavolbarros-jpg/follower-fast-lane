@@ -115,6 +115,10 @@ const plans = [
   }
 ];
 
+  // 👇 ADICIONE SUA CHAVE AQUI 👇
+  const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4bHd3emFocWNnY3BhanVuYmJ2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjE2OTA1NywiZXhwIjoyMDY3NzQ1MDU3fQ.XsdAE4aAc6M-CtfjZjDiCKZt1cie2GjH_bCIAUeT4Do';
+
+
 // Frontend - handlePurchase CORRIGIDO
 const handlePurchase = async (planIndex) => {
   const rawUsername = usernames[planIndex] || '';
@@ -130,11 +134,11 @@ const handlePurchase = async (planIndex) => {
 
   try {
     // 1. CRIAR PEDIDO NO BANCO PRIMEIRO - USANDO A URL CORRETA
-    const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
+     const response = await fetch(`${BACKEND_URL}/functions/v1/criar-checkout`, {
       method: 'POST',
-      headers: {
+      headers: { // 👈 AJUSTE FEITO AQUI
         'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'true'
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
       },
       body: JSON.stringify({
         usuario_instagram: cleanUsername,
