@@ -604,14 +604,15 @@ const Index = () => {
       <div className="h-24"></div>
 <section className="bg-white py-12 px-4">
   <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in text-center">
-    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+    {/* Títulos com tamanho ajustado para mobile */}
+    <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
       Ganhe seguidores reais no Instagram com <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">entrega rápida e segura</span> 🚀
     </h1>
-    
-    <h2 className="text-lg md:text-xl text-gray-600 mb-8">
+    <h2 className="text-base md:text-xl text-gray-600 mb-8 max-w-3xl">
       Os melhores seguidores brasileiros reais. Mais visibilidade, mais autoridade e resultados imediatos para sua conta.
     </h2>
 
+    {/* Botão com gradiente original */}
     <Button
       onClick={scrollToPlans}
       className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-5 py-4 text-xl font-semibold rounded-lg transition-all duration-300 border-0"
@@ -619,18 +620,18 @@ const Index = () => {
       COMPRAR SEGUIDORES AGORA
     </Button>
 
-    {/* NOVO BLOCO ADICIONADO AQUI */}
-    <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-700">
-        <span className="flex items-center">
+    {/* Checks de confiança com responsividade corrigida para mobile */}
+    <div className="mt-8 grid grid-cols-1 text-left text-sm sm:grid-cols-2 sm:text-center gap-x-6 gap-y-2 text-gray-700 w-full max-w-xs sm:max-w-lg mx-auto">
+        <span className="flex items-center sm:justify-center">
             <span className="text-green-500 font-bold mr-2">✔</span> Seguidores reais e ativos
         </span>
-        <span className="flex items-center">
+        <span className="flex items-center sm:justify-center">
             <span className="text-green-500 font-bold mr-2">✔</span> Entrega em até 24h
         </span>
-        <span className="flex items-center">
+        <span className="flex items-center sm:justify-center">
             <span className="text-green-500 font-bold mr-2">✔</span> Suporte 24/7
         </span>
-        <span className="flex items-center">
+        <span className="flex items-center sm:justify-center">
             <span className="text-green-500 font-bold mr-2">✔</span> Pagamento 100% seguro
         </span>
     </div>
