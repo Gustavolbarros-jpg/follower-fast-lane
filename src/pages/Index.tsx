@@ -602,37 +602,40 @@ const Index = () => {
       </div>
 
       <div className="h-24"></div>
+<section className="bg-white py-12 px-4">
+  <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in text-center">
+    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+      Ganhe seguidores reais no Instagram com <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">entrega rápida e segura</span> 🚀
+    </h1>
+    
+    <h2 className="text-lg md:text-xl text-gray-600 mb-8">
+      Os melhores seguidores brasileiros reais. Mais visibilidade, mais autoridade e resultados imediatos para sua conta.
+    </h2>
 
-      <section className="bg-white py-12 px-4">
-        <div className="max-w-6xl mx-auto flex flex-col items-center animate-fade-in">
-          <h1 className="text-2xl uppercase mb-6 leading-tight md:text-6xl font-bold text-neutral-700 text-center">
-            GANHE{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">
-              SEGUIDORES
-            </span>{" "}
-            REAIS
-            <br />E ATIVOS NO{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">
-              INSTAGRAM
-            </span>
-          </h1>
-          <h2
-            className="text-x md:text-2xl mb-8 max-w-3xl mx-auto text-center"
-            style={{
-              color: "#d84e75",
-            }}
-          >
-            Os melhores seguidores brasileiros prime com entrega rápida, sem
-            senha e 100% seguro.
-          </h2>
-          <Button
-            onClick={scrollToPlans}
-            className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-5 py-4 text-xl font-semibold rounded-lg transition-all duration-300 border-0"
-          >
-            COMPRAR SEGUIDORES AGORA
-          </Button>
-        </div>
-      </section>
+    <Button
+      onClick={scrollToPlans}
+      className="pulse-main-button bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 hover:from-purple-700 hover:via-pink-600 hover:to-orange-500 text-white px-5 py-4 text-xl font-semibold rounded-lg transition-all duration-300 border-0"
+    >
+      COMPRAR SEGUIDORES AGORA
+    </Button>
+
+    {/* NOVO BLOCO ADICIONADO AQUI */}
+    <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-700">
+        <span className="flex items-center">
+            <span className="text-green-500 font-bold mr-2">✔</span> Seguidores reais e ativos
+        </span>
+        <span className="flex items-center">
+            <span className="text-green-500 font-bold mr-2">✔</span> Entrega em até 24h
+        </span>
+        <span className="flex items-center">
+            <span className="text-green-500 font-bold mr-2">✔</span> Suporte 24/7
+        </span>
+        <span className="flex items-center">
+            <span className="text-green-500 font-bold mr-2">✔</span> Pagamento 100% seguro
+        </span>
+    </div>
+  </div>
+</section>
 
       <section id="depoimentos" className="bg-white py-0px-2">
         <div className="max-w-6xl mx-auto">
@@ -723,13 +726,11 @@ const Index = () => {
 
       <section id="planos" className="bg-[#f9f9f9] py-6 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-2 text-neutral-700">
-            Conheça nossos <span style={{ color: "#f83f8d" }}>Pacotes</span>
-          </h2>
-          <p className="text-center text-black mb-2">
-            Na compra de qualquer pacote ganhe também Bônus de engajamento:
-            Curtidas + Views!
-          </p>
+         <h2 className="text-4xl font-bold text-center mb-2 text-neutral-700">Promoção,
+          Seguidores em <span style={{ color: "#f83f8d" }}>Dobro</span>
+          </h2><p className="text-center text-gray-600 text-lg mt-4 mb-8 max-w-2xl mx-auto">
+  <span className="font-bold text-neutral-800">Promoção por tempo limitado.</span> Na compra de qualquer pacote leve o <span className="font-bold text-neutral-800">dobro de seguidores</span>!
+</p>
           <p className="text-center text-black text-sm font-bold mb-8">
             Escolha o pacote ideal para você 👇
           </p>
